@@ -10,10 +10,13 @@ export class MapComponent implements OnInit {
   @Input() map: Map
 
   constructor (
-    private elementRef: ElementRef
+    private elementRef: ElementRef,
+    private zone: NgZone
   ) {}
 
   ngOnInit (): void {
-    this.map.setTarget(this.elementRef.nativeElement)
+    this.zone.runOutsideAngular(() => {
+      this.map.setTarget(this.elementRef.nativeElement)
+    })
   }
 }
