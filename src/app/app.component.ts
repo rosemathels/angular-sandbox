@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked } from '@angular/core'
+import { Component, OnInit, AfterViewChecked, NgZone } from '@angular/core'
 import { Map, View, MapBrowserEvent, Feature } from 'ol'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
 import { OSM, Vector as VectorSource } from 'ol/source'
@@ -13,6 +13,8 @@ import { Circle, Style, Stroke, Fill } from 'ol/style'
 export class AppComponent implements OnInit, AfterViewChecked {
   survol = false
   map: Map
+
+  constructor(private zone: NgZone) {}
 
   ngOnInit (): void {
     this.map = new Map({
@@ -43,7 +45,11 @@ export class AppComponent implements OnInit, AfterViewChecked {
       const hit = this.map.getFeaturesAtPixel(e.pixel).length > 0
       const target: HTMLElement = e.map.getTargetElement()
       target.style.cursor = hit ? 'pointer' : ''
-      this.survol = hit
+      if (this.survol !== hit) {
+        this.zone.run(() => {
+          this.survol = hit
+        })
+      }
     })
   }
 
