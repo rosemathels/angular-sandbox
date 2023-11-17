@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component, OnInit, AfterViewChecked } from '@angular/core'
 import { Map, View, MapBrowserEvent, Feature } from 'ol'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
 import { OSM, Vector as VectorSource } from 'ol/source'
@@ -10,7 +10,7 @@ import { Circle, Style, Stroke, Fill } from 'ol/style'
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   survol = false
   map: Map
 
@@ -45,5 +45,9 @@ export class AppComponent implements OnInit {
       target.style.cursor = hit ? 'pointer' : ''
       this.survol = hit
     })
+  }
+
+  ngAfterViewChecked (): void {
+    console.log('View checked !')
   }
 }
