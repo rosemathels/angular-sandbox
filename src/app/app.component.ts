@@ -1,8 +1,8 @@
 import { Component, OnInit, AfterViewChecked, NgZone } from '@angular/core'
 import { Map, View, MapBrowserEvent, Feature } from 'ol'
+import { Point } from 'ol/geom'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
 import { OSM, Vector as VectorSource } from 'ol/source'
-import { Point } from 'ol/geom'
 import { Circle, Style, Stroke, Fill } from 'ol/style'
 
 @Component({

@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
 import { MapComponent } from './map/map.component'
+import { TimerComponent } from './timer/timer.component'
 
 @NgModule({
   declarations: [
     AppComponent,
-    MapComponent
+    MapComponent,
+    TimerComponent
   ],
   imports: [
     BrowserModule
