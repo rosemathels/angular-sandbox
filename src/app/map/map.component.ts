@@ -1,10 +1,11 @@
-import { Component, OnInit, Input, ElementRef, NgZone } from '@angular/core'
+import { Component, OnInit, Input, ElementRef, NgZone, ChangeDetectionStrategy } from '@angular/core'
 import { Map } from 'ol'
 
 @Component({
   selector: 'app-map',
   template: '',
-  styleUrl: './map.component.scss'
+  styleUrl: './map.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MapComponent implements OnInit {
   @Input() map: Map

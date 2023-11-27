@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewChecked, NgZone } from '@angular/core'
+import { Component, NgZone, OnInit, AfterViewChecked, ChangeDetectorRef } from '@angular/core'
 import { Map, View, MapBrowserEvent, Feature } from 'ol'
 import { Point } from 'ol/geom'
 import { Tile as TileLayer, Vector as VectorLayer } from 'ol/layer'
@@ -10,11 +10,14 @@ import { Circle, Style, Stroke, Fill } from 'ol/style'
   templateUrl: './map-container.component.html',
   styleUrl: './map-container.component.scss'
 })
-export class MapContainerComponent {
-  survol = false
+export class MapContainerComponent implements OnInit, AfterViewChecked {
+  hovered = false
   map: Map
 
-  constructor(private zone: NgZone) {}
+  constructor(
+    private zone: NgZone,
+    private changeDetector: ChangeDetectorRef
+  ) {}
 
   ngOnInit (): void {
     this.map = new Map({
@@ -42,13 +45,14 @@ export class MapContainerComponent {
     })
 
     this.map.on('pointermove', (e: MapBrowserEvent<UIEvent>) => {
-      const hit = this.map.getFeaturesAtPixel(e.pixel).length > 0
+      const hovered = this.map.getFeaturesAtPixel(e.pixel).length > 0
+
       const target: HTMLElement = e.map.getTargetElement()
-      target.style.cursor = hit ? 'pointer' : ''
-      if (this.survol !== hit) {
-        this.zone.run(() => {
-          this.survol = hit
-        })
+      target.style.cursor = hovered ? 'pointer' : '' // Angular doesn't need to know this...
+
+      if (this.hovered !== hovered) {
+        this.hovered = hovered // ... but it needs to know that because it is referenced in the template
+        this.changeDetector.detectChanges()
       }
     })
   }
