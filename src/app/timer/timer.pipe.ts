@@ -11,8 +11,11 @@ export class TimerPipe implements PipeTransform {
   ) {}
 
   transform (date: DateTime): Observable<string> {
-    return new Observable((subscriber: any) => this.emettreToutesLesSecondesOutsideAngular(subscriber, this.zone, this.changeDetector))
-      .pipe(map(() => this.calculerTempsEcoule(date)))
+    return new Observable((subscriber: any) => {
+      this.emettreToutesLesSecondesOutsideAngular(subscriber)
+    }).pipe(
+      map(() => this.calculerTempsEcoule(date))
+    )
   }
 
   emettreToutesLesSecondes (subscriber: any): void {
@@ -22,8 +25,8 @@ export class TimerPipe implements PipeTransform {
     }, 1000)
   }
 
-  emettreToutesLesSecondesOutsideAngular (subscriber: any, zone: NgZone, changeDetector: ChangeDetectorRef): void {
-    zone.runOutsideAngular(() => {
+  emettreToutesLesSecondesOutsideAngular (subscriber: any): void {
+    this.zone.runOutsideAngular(() => {
       subscriber.next()
       this.changeDetector.detectChanges()
       setInterval(() => {

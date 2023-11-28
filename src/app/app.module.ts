@@ -4,9 +4,8 @@ import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
 import { MapComponent } from './map/map.component'
+import { TimerPipe } from './timer/timer.pipe'
 import { TimerComponent } from './timer/timer.component'
-import { TimerPipe } from './timer-with-pipe/timer.pipe'
-import { TimerWithPipeComponent } from './timer-with-pipe/timer-with-pipe.component'
 import { MapContainerComponent } from './map-container/map-container.component'
 
 @NgModule({
@@ -15,7 +14,6 @@ import { MapContainerComponent } from './map-container/map-container.component'
     MapComponent,
     MapContainerComponent,
     TimerComponent,
-    TimerWithPipeComponent,
     TimerPipe
   ],
   imports: [

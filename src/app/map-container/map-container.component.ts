@@ -48,10 +48,12 @@ export class MapContainerComponent implements OnInit, AfterViewChecked {
       const hovered = this.map.getFeaturesAtPixel(e.pixel).length > 0
 
       const target: HTMLElement = e.map.getTargetElement()
-      target.style.cursor = hovered ? 'pointer' : '' // Angular doesn't need to know this...
+      // Angular doesn't need to know this...
+      target.style.cursor = hovered ? 'pointer' : ''
 
       if (this.hovered !== hovered) {
-        this.hovered = hovered // ... but it needs to know that because it is referenced in the template
+        // ... but it needs to know that because it is referenced in the template
+        this.hovered = hovered
         this.changeDetector.detectChanges()
       }
     })
